@@ -1,0 +1,8 @@
+
+name: LocalChatManager
+version: 1.0.0
+main: me.flour.rpChatManager.FirstFile
+author: Wheat
+api-version: 1.17
+libraries:
+  - org.openjdk.nashorn:nashorn-core:15.3
