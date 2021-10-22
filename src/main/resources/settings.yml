@@ -16,6 +16,8 @@ RP_chat:
   Message_Color: "&d"
   # Command that toggles local chat
   Label: "rp"
+  # Nick color for messages in local chat
+  Nick_Color: "&b"
 
 
 # Global chat options (is enabled)
@@ -29,6 +31,8 @@ Global_chat:
   Permission_To_Global_chat: "localchat.global"
   # Command that toggles global chat
   Label: "global"
+  # Nick color for messages in global chat
+  Nick_Color: "&d"
 
 
 # DO NOT CHANGE THESE SETTINGS!!!

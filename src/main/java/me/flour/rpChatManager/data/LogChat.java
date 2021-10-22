@@ -26,7 +26,7 @@ public class LogChat {
 				dataFolder.mkdir();
 			}
 
-			final File saveTo = new File(FirstFile.getInstance().getDataFolder(), "data.txt");
+			final File saveTo = new File(FirstFile.getInstance().getDataFolder(), "logs.txt");
 			if (!saveTo.exists()) {
 				saveTo.createNewFile();
 			}

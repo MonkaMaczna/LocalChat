@@ -27,7 +27,7 @@ public class FirstFile extends SimplePlugin {
 		registerCommand(new ToggleGlobal("global"));
 
 
-		Common.log("&b[Local Chat] Loaded Local Chat Manager. ");
+		Common.log("&b[Local Chat] Loaded Local Chat Manager. ", "&bPlugin was made by Wheat Flour");
 
 	}
 

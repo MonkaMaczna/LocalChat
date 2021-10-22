@@ -75,10 +75,10 @@ public class ToggleGlobal extends SimpleCommand {
 		if (EphemeralData.getInstance().checkIfToggledRP().contains(play.getUniqueId())) {
 			EphemeralData.getInstance().checkIfToggledRP().remove(play.getUniqueId());
 
-			Common.tell(play, "&aYou started talking in Global Chat.");
+			Common.tell(play, Settings.GLOBAL_PREFIX+ "&aYou started talking in Global Chat.");
 
 		} else if (!EphemeralData.getInstance().checkIfToggledRP().contains(player.getUniqueId())) {
-			play.sendMessage(ChatColor.RED + "You are already talking in Global Chat!");
+			Common.tell(getPlayer(),Settings.GLOBAL_PREFIX + ChatColor.RED + "You are already talking in Global Chat!");
 		}
 	}
 }

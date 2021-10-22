@@ -46,12 +46,12 @@ public class Messenger implements Listener {
 					}
 
 
-					Common.tell(playerTarget, Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
+					Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
 
-					Common.log(Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
+					Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
 
 					if (logging) {
-						LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
+						LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
 					}
 					event.setCancelled(true);
 
@@ -74,11 +74,11 @@ public class Messenger implements Listener {
 					message = Common.colorize(message);
 				}
 
-				message = prefix + " " + playername + "&l&b: " + Settings.GLOBAL_COLOR + event.getMessage();
+				message = prefix + " "+ Settings.GLOBAL_NICK + playername + "&l&b: " + Settings.GLOBAL_COLOR + event.getMessage();
 
 
 			} else if (!Settings.LUCKPERMS_BOOLEAN || getServer().getPluginManager().getPlugin("LuckPerms") == null) {
-				message = playername + Settings.GLOBAL_COLOR + ": " + event.getMessage();
+				message = Settings.GLOBAL_NICK + playername + Settings.GLOBAL_COLOR + ": " + event.getMessage();
 				if (Settings.GLOBAL_PREFIX != null) {
 					message = Settings.GLOBAL_PREFIX + " " + message;
 				}
