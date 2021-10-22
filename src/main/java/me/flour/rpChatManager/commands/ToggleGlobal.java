@@ -15,7 +15,7 @@ import static org.bukkit.Bukkit.getServer;
 public class ToggleGlobal extends SimpleCommand {
 
 	public ToggleGlobal(final String label) {
-		super("global");
+		super(Settings.GLOBAL_LABEL);
 	}
 
 

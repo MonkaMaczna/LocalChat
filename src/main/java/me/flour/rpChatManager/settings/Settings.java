@@ -19,6 +19,8 @@ public class Settings extends SimpleSettings {
 	public static String GLOBAL_COLOR;
 	public static String GLOBAL_PREFIX;
 	public static String GLOBAL_PERM;
+	public static String GLOBAL_LABEL;
+	public static String LOCAL_LABEL;
 
 	public static String RP_PERM;
 
@@ -35,6 +37,8 @@ public class Settings extends SimpleSettings {
 		GLOBAL_PERM = getString("Global_chat.Permission_To_Global_chat");
 		LOGGING = getBoolean("Logging_Messages");
 		RP_PERM = getString("RP_chat.Permission_To_RP_chat");
+		GLOBAL_LABEL = getString("Global_chat.Label");
+		LOCAL_LABEL = getString("RP_chat.Label");
 
 	}
 }

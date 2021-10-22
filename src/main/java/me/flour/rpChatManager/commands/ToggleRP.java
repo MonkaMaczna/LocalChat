@@ -13,7 +13,7 @@ import org.mineacademy.fo.command.SimpleCommand;
 
 public class ToggleRP extends SimpleCommand {
 	public ToggleRP(final String label) {
-		super("rp");
+		super(Settings.LOCAL_LABEL);
 	}
 
 
