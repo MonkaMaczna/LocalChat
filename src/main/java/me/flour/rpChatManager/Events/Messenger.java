@@ -1,5 +1,8 @@
 package me.flour.rpChatManager.Events;
 
+import com.bekvon.bukkit.residence.commands.message;
+import me.flour.character.API.CharacterAPI;
+import me.flour.preferences.API.PreferencesAPI;
 import me.flour.rpChatManager.data.EphemeralData;
 import me.flour.rpChatManager.data.LogChat;
 import me.flour.rpChatManager.settings.Settings;
@@ -26,7 +29,7 @@ public class Messenger implements Listener {
 		final Player player = event.getPlayer();
 		String message = event.getMessage();
 		final String playername = player.getDisplayName();
-		final Integer distance = Settings.DISTANCE;
+
 		final Location center = player.getLocation();
 		final Boolean logging = Settings.LOGGING;
 		Common.setLogPrefix("[Local Chat Manager]");
@@ -36,27 +39,97 @@ public class Messenger implements Listener {
 
 
 			for (final Player playerTarget : Bukkit.getOnlinePlayers()) {
-				final Location location = playerTarget.getLocation();
 
-				if (location.distanceSquared(center) <= distance * distance) {
+				if (getServer().getPluginManager().getPlugin("RoleplayPreferencesPlugin") != null && Settings.DEPEND) {
+					if (playerTarget == player || !PreferencesAPI.checkIgnoreRP(playerTarget)) {
 
 
-					if (message.contains("&")) {
-						message = Common.colorize(message);
+						final Location location = playerTarget.getLocation();
+
+
+
+
+						Integer	distance = PreferencesAPI.getHearingDistance(playerTarget);
+
+						if (location.distanceSquared(center) <= distance * distance) {
+
+
+							if (message.contains("&")) {
+								message = Common.colorize(message);
+							}
+
+
+							if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") != null) {
+								Common.tell(playerTarget, Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								Common.log(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								if (logging) {
+									LogChat.getInstance().logToFile(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+								}
+								event.setCancelled(true);
+							} else if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") == null) {
+								Common.log("&cNot found Roleplay Character Information Dependency. Download plugin or turn off dependency in settings.",
+										"If you think this is a mistake contact author of the plugin.");
+							} else {
+								Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								if (logging) {
+									LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+								}
+								event.setCancelled(true);
+							}
+						}
 					}
+					} else {
+					final Location location = playerTarget.getLocation();
 
 
-					Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
 
-					Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
 
-					if (logging) {
-						LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+					Integer distance = Settings.DISTANCE;
+
+
+					if (location.distanceSquared(center) <= distance * distance) {
+
+
+						if (message.contains("&")) {
+							message = Common.colorize(message);
+						}
+
+
+						if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") != null) {
+							Common.tell(playerTarget, Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							Common.log(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							if (logging) {
+								LogChat.getInstance().logToFile(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+							}
+							event.setCancelled(true);
+						} else if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") == null) {
+							Common.log("&cNot found Roleplay Character Information Dependency. Download plugin or turn off dependency in settings.",
+									"If you think this is a mistake contact author of the plugin.");
+						} else {
+							Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							if (logging) {
+								LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+							}
+							event.setCancelled(true);
+						}
 					}
-					event.setCancelled(true);
-
-
 				}
+
+
+
+
+
+
 
 
 			}

@@ -26,8 +26,32 @@ public class FirstFile extends SimplePlugin {
 		registerCommand(new ToggleRP("rp"));
 		registerCommand(new ToggleGlobal("global"));
 
+		if (Settings.DEPEND) {
+			if (getServer().getPluginManager().getPlugin("RoleplayPreferencesPlugin") == null ||
+					getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") == null) {
+				Common.log("&cDependecies not found!!!",
+						"&cNeeded plugins: RoleplayPreferencesPlugin, RoleplayCharacterInformation",
+						"&cYou can download these from my spigotmc profile: https://www.spigotmc.org/members/monkakokosowa.1262056/",
+						"&cRoleplayCharacterInformation: https://www.spigotmc.org/resources/roleplay-character-information.97031/",
+						"&cRoleplayPreferencesPlugin: https://www.spigotmc.org/resources/local-chat-plugin-for-short-distance-chatting.97027/",
+						"&cDisabling Plugin...");
+				getServer().getPluginManager().disablePlugin(this);
+			}
+		}
+
 
 		Common.log("&b[Local Chat] Loaded Local Chat Manager. ", "&bPlugin was made by Wheat Flour");
+
+		new UpdateChecker(this, 97027).getVersion(version -> {
+			if (this.getDescription().getVersion().equals(version)) {
+				Common.log("&b[Local Chat] &aThere aren't any new updates for Local Chat");
+			} else {
+				Common.log("&aThere's a new update avalaible for Local Chat",
+						"&aLink to update: https://www.spigotmc.org/resources/local-chat-plugin-for-short-distance-chatting.97027/",
+						"&aPlease download regularly updates because they are fixing many bugs and add many new features.");
+
+			}
+		});
 
 	}
 

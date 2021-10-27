@@ -3,6 +3,6 @@ name: LocalChatManager
 version: ${project.version}
 main: ${main.class}
 author: Wheat
-api-version: 1.17
+api-version: 1.13
 libraries:
   - org.openjdk.nashorn:nashorn-core:15.3

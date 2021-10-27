@@ -35,7 +35,7 @@
     <groupId>org.flour.rpChatManager</groupId>
     <artifactId>LocalChatManager</artifactId>
     <name>LocalChatManager</name>
-    <version>1.0.0</version>
+    <version>1.0.3</version>
 
 
     <!-- ############################################################################### -->
@@ -120,10 +120,33 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.MonkaMaczna</groupId>
+            <artifactId>RolePlayCharacter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.3</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.flour.preferences</groupId>
+            <artifactId>preferencesPlugin</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/PreferencesPlugin.jar</systemPath>
+        </dependency>
+
+
+        <dependency>
+            <groupId>me.flour.character</groupId>
+            <artifactId>roleplayCharacterInformation</artifactId>
+            <version>1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/RoleplayCharacterInformation.jar</systemPath>
         </dependency>
 
     </dependencies>

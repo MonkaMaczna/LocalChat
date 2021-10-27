@@ -1,6 +1,8 @@
 package me.flour.rpChatManager.commands;
 
 
+import me.flour.character.API.CharacterAPI;
+import me.flour.preferences.API.PreferencesAPI;
 import me.flour.rpChatManager.data.EphemeralData;
 import me.flour.rpChatManager.data.LogChat;
 import me.flour.rpChatManager.settings.Settings;
@@ -10,6 +12,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.mineacademy.fo.Common;
 import org.mineacademy.fo.command.SimpleCommand;
+
+import static org.bukkit.Bukkit.getServer;
 
 public class ToggleRP extends SimpleCommand {
 	public ToggleRP(final String label) {
@@ -28,7 +32,7 @@ public class ToggleRP extends SimpleCommand {
 
 
 			final Player player = getPlayer();
-			final Integer distance = Settings.DISTANCE;
+
 			final Location center = player.getLocation();
 			final String playername = player.getDisplayName();
 			final Boolean logging = Settings.LOGGING;
@@ -43,27 +47,98 @@ public class ToggleRP extends SimpleCommand {
 
 
 			for (final Player playerTarget : Bukkit.getOnlinePlayers()) {
-				final Location location = playerTarget.getLocation();
-				// if player is in distance of player executes block
-				if (location.distanceSquared(center) <= distance * distance) {
 
 
-					// colorizes message if contains color coded symbols
-					if (message.contains("&")) {
-						message = Common.colorize(message);
+				if (getServer().getPluginManager().getPlugin("RoleplayPreferencesPlugin") != null && Settings.DEPEND) {
+					if (playerTarget == player || !PreferencesAPI.checkIgnoreRP(playerTarget)) {
+
+
+						final Location location = playerTarget.getLocation();
+
+						Integer	distance = PreferencesAPI.getHearingDistance(playerTarget);
+
+						// if player is in distance of player executes block
+						if (location.distanceSquared(center) <= distance * distance) {
+
+
+							// colorizes message if contains color coded symbols
+							if (message.contains("&")) {
+								message = Common.colorize(message);
+							}
+
+
+							if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") != null) {
+								Common.tell(playerTarget, Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								Common.log(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								if (logging) {
+									LogChat.getInstance().logToFile(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+								}
+
+							} else if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") == null) {
+								Common.log("&cNot found Roleplay Character Information Dependency. Download plugin or turn off dependency in settings.",
+										"&cIf you think this is a mistake contact author of the plugin.",
+										"&cDownload it from: https://www.spigotmc.org/resources/roleplay-character-information.97031/");
+							} else {
+								Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+								if (logging) {
+									LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+								}
+
+
+							}
+
+						}
+				}
+
+
+				} else {
+					final Location location = playerTarget.getLocation();
+
+
+
+
+						Integer distance = Settings.DISTANCE;
+
+					// if player is in distance of player executes block
+					if (location.distanceSquared(center) <= distance * distance) {
+
+
+						// colorizes message if contains color coded symbols
+						if (message.contains("&")) {
+							message = Common.colorize(message);
+						}
+
+
+						if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") != null) {
+							Common.tell(playerTarget, Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							Common.log(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							if (logging) {
+								LogChat.getInstance().logToFile(Settings.RP_PREFIX + "&a[&b " + CharacterAPI.getRpName(player) + "&a] " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+							}
+
+						} else if (Settings.DEPEND && getServer().getPluginManager().getPlugin("RoleplayCharacterInformation") == null) {
+							Common.log("&cNot found Roleplay Character Information Dependency. Download plugin or turn off dependency in settings.",
+									"&cIf you think this is a mistake contact author of the plugin.",
+									"&cDownload it from: https://www.spigotmc.org/resources/roleplay-character-information.97031/");
+						} else {
+							Common.tell(playerTarget, Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							Common.log(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+
+							if (logging) {
+								LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + Settings.RP_NICK + playername + "&7: " + Settings.RP_COLOR + message);
+							}
+
+
+						}
 					}
-					
-
-					Common.tell(playerTarget, Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
-
-					// logs message to the console
-					Common.log(Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
-
-					if (logging) {
-						// checks if logging is on in settings; if true logs the file to the logs file in plugin folder
-						LogChat.getInstance().logToFile(Settings.RP_PREFIX + " " + playername + "&7: " + Settings.RP_COLOR + message);
-					}
-
 
 				}
 

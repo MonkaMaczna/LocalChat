@@ -4,4 +4,5 @@ me/flour/rpChatManager/commands/ToggleRP.class
 me/flour/rpChatManager/commands/ToggleGlobal.class
 me/flour/rpChatManager/FirstFile.class
 me/flour/rpChatManager/data/EphemeralData.class
+me/flour/rpChatManager/UpdateChecker.class
 me/flour/rpChatManager/settings/Settings.class

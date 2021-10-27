@@ -5,7 +5,7 @@ import org.mineacademy.fo.settings.SimpleSettings;
 public class Settings extends SimpleSettings {
 	@Override
 	protected int getConfigVersion() {
-		return 1;
+		return 3;
 
 	}
 
@@ -24,6 +24,7 @@ public class Settings extends SimpleSettings {
 	public static String GLOBAL_NICK;
 	public static String RP_PERM;
 	public static String RP_NICK;
+	public static Boolean DEPEND;
 
 
 	private static void init() {
@@ -42,6 +43,7 @@ public class Settings extends SimpleSettings {
 		LOCAL_LABEL = getString("RP_chat.Label");
 		GLOBAL_NICK = getString("Global_chat.Nick_Color");
 		RP_NICK = getString("RP_chat.Nick_Color");
+		DEPEND = getBoolean("RolePlay_Character_Information_Dependency");
 
 
 	}
