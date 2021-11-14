@@ -1,0 +1,60 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Action Spigot Builder
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+     - uses: actions/checkout@v2
+     - name: Set up JDK 16
+     - uses: actions/setup-java@v2
+       with:
+        java-version: '16'
+        distribution: 'adopt'
+        cache: maven
+     - uses: SpraxDev/Action-SpigotMC@v3
+       with:
+          versions: 1.13 # Optional
+
+    # Should sources be generated?
+    # If enabled, BuildTools is provided the '--generate-source' argument
+          generateSrc: false # Optional
+
+    # Should the documentation be generated?
+    # If enabled, BuildTools is provided the '--generate-docs' argument
+          generateDoc: false # Optional
+
+    # Should we disable the BuildTools's Java-Version-Check?
+    # If enabled, BuildTools is provided the '--disable-java-check' argument
+          disableJavaCheck: false # Optional
+
+    # Disables the check for existing files in the local maven repository
+    # Normally, a version is skipped if it is already installed
+    # in the local maven repository to speed up build time
+          forceRun: false # Optional
+
+    # The amount of builds allowed to run at the same time
+    # Set to '-1' to use system's cpu core count
+          threads: -1 # Optional
+
+    # You can choose between different BuildTools to be used by this action
+    # ~~'SpraxDev' is my fork of SpigotMC's that introduces some changes (https://github.com/SpraxDev/Spigot-BuildTools/#breaking-changes)~~
+    # My (SpraxDev) provider is causing some builds to fail depending on the build environment
+    # Available: SpraxDev, SpigotMC
+          buildToolProvider: SpigotMC # Optional
+
+
+
+
+
+
